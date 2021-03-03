@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="res_config_settings_view_form" model="ir.ui.view">
+    <field name="name">res.config.settings.view.form.inherit.sale</field>
+    <field name="model">res.config.settings</field>
+    <field name="priority" eval="101"/>
+    <field name="inherit_id" ref="l10n_cl_fe.res_config_settings_view_form"/>
+    <field name="arch" type="xml">
+      <div id="limit_dte_lines" position="replace">
+         <div class="col-xs-12 col-md-6 o_setting_box" id="limit_dte_lines">
+            <div class="o_setting_left_pane">
+                <field name="limit_dte_lines" />
+            </div>
+            <div class="o_setting_right_pane" name="limit_dte_lines_right_pane">
+                <label string="Limitar Líneas" for="limit_dte_lines"/>
+                <div class="text-muted">
+                   Limitar la cantidad de líneas por documento (legalmente debe ser una por hoja)
+                </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 o_setting_box" id="dte_lines" attrs="{'invisible': [('limit_dte_lines', '=', False)]}">
+            <div class="o_setting_left_pane">
+                <field name="dte_lines"/>
+            </div>
+            <div class="o_setting_right_pane" name="dte_lines_right_pane">
+                <label string="Líneas por DTE" for="dte_lines"/>
+                <div class="text-muted">
+                   Cantidad de líneas por documento (legalmente debe ser una por hoja)
+                </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6 o_setting_box" id="dte_lines_factor" attrs="{'invisible': [('limit_dte_lines', '=', False)]}">
+            <div class="o_setting_left_pane">
+                <field name="dte_lines_factor"/>
+            </div>
+            <div class="o_setting_right_pane" name="dte_lines_factor_right_pane">
+                <label string="Factor de Cálculo alto de Líneas" for="dte_lines_factor"/>
+                <div class="text-muted">
+                   El cálculo se realizará según la regla:
+                   <pre>
+total_lineas = 0
+por cada_linea:
+   factor = (ancho_linea / tamaño_fuente)
+   alto_linea = redondeo_arriba(texto_linea / factor)
+   total_lineas += alto_linea
+si hay lineas_referencia:
+   total_lineas += 1
+por cada_linea_referencia:
+   total_lineas += 1
+return total_lineas
+                   </pre>
+                </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6 o_setting_box" id="dte_lines_action" attrs="{'invisible': [('limit_dte_lines', '=', False)]}">
+            <div class="o_setting_left_pane">
+            </div>
+            <div class="o_setting_right_pane" name="dte_lines_right_pane">
+                <label string="Acción a realizar" for="dte_lines_action"/>
+                <field name="dte_lines_action"/>
+                <div class="text-muted">
+                   Acción a ejecutar una vez se superen las líneas
+                </div>
+            </div>
+        </div>
+      </div>
+    </field>
+  </record>
+</odoo>
