@@ -26,14 +26,7 @@ class DTELines(models.Model):
                     'dte_lines.dte_lines', default=24))
         total_lines = 0
         for l in self.invoice_line_ids:
-            l_size = 0
-            if l.product_id.name:
-                l_size = self._line_size(l.product_id.name)
-            if l.name:
-                name_size = self._line_size(l.name)
-                if l_size < name_size:
-                    l_size = name_size
-            total_lines += (l_size + 1)
+            total_lines += 1
         if self.referencias:
             dte_lines -= (len(self.references) - 2)
         return total_lines, dte_lines
